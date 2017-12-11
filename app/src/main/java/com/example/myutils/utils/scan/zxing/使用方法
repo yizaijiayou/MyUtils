@@ -1,0 +1,24 @@
+使用方法（1.添加清单文件<activity android:name=".utils.scan.zxing.CaptureActivity"/>；2.使用前请先添加权限： WRITE_EXTERNAL_STORAGE  和  CAMERA ）
+1.调用相机扫描，可以扫描二维码。也可以扫描条形码
+Intent intent = new Intent(this,CaptureActivity.class);
+startActivityForResult(intent, CaptureActivity.SCANNING_CODE);
+//回调方法看下面（/* */）
+2.生成二维码
+Bitmap qrCode = CodeCreator.createQRCode("123");
+imageView.setImageBitmap(qrCode);
+
+
+ /*
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  super.onActivityResult(requestCode, resultCode, data);
+  // 扫描二维码/条码回传
+  if (requestCode == CaptureActivity.SCANNING_CODE && resultCode == RESULT_OK) {
+  if (data != null) {
+
+  String content = data.getStringExtra(CaptureActivity.DECODED_CONTENT_KEY);
+  Bitmap bitmap = data.getParcelableExtra(CaptureActivity.DECODED_BITMAP_KEY);
+
+  textView.setText("" + content);
+  }}}
+ */
