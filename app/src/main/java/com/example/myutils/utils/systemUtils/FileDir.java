@@ -41,4 +41,5 @@ public class FileDir {
     public static String getStorageCache(){
         return BaseApplication.getAppContext().getExternalCacheDir().getAbsolutePath();
     }
+
 }

@@ -35,7 +35,7 @@ public class ToolBarActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(v -> toast("你单击我了"));
 
         setSupportActionBar(toolbar);//有时候需要这句话才回出现navagationIcon
-        toolbar.setOnMenuItemClickListener(onMenuItemClickListener);
+        toolbar.setOnMenuItemClickListener(null);
     }
 
     @Override

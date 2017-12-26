@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,8 @@ import static android.content.Context.TELEPHONY_SERVICE;
  * 9.获取相机和获取相机拍照的文件
  * 10.判断是否有SIM卡
  * 11.隐藏手机号码
+ * 12.判断email格式是否正确
+ * 13.获取像素点的倍数
  */
 
 public class Tools {
@@ -353,4 +356,24 @@ public class Tools {
         else
             return str.substring(0, 3) + "****" + str.substring(str.length() - 4, str.length());
     }
+    /**
+     * 12 .判断email格式是否正确
+     */
+    public static boolean isEmail(String email) {
+        String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+        Pattern p = Pattern.compile(str);
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    /**
+     * 13.获取像素点的倍数
+     * 1080  : 3
+     */
+    public static float getDesity(Activity activity) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.density;
+    }
+
 }

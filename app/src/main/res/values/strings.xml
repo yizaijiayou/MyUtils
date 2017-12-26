@@ -3,6 +3,8 @@
     <string name="errorConnect">网络访问错误</string>
     <string name="wetChat_APPKEY"></string>
 
+    <string name="digits">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM0123456789.</string>
+
     <!--zxing相关-->
     <string name="msg_camera_framework_bug">Sorry, the Android camera encountered a problem. You may need to restart the device.</string>
     <string name="button_ok">OK</string>

@@ -169,6 +169,7 @@ public class OkHttpUtil {
 
                     mHandler.post(() -> onDownloadListener.onDownloadSuccess(file));
                 } catch (Exception e) {
+                    mHandler.post(() -> onDownloadListener.onDownloadFailed());
                     e.printStackTrace();
                 } finally {
                     if (is != null) is.close();
