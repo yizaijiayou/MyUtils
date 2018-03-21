@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +18,7 @@ import com.example.myutils.utils.scan.zxing.CaptureActivity;
 import com.example.myutils.utils.systemUtils.FileDir;
 import com.example.myutils.utils.systemUtils.L;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -58,22 +62,38 @@ public class MainActivity extends BaseActivity {
 
 
     public void getClick(View v){
-        requestPermission(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissonListener() {
-            @Override
-            public void onGranted() {
-                Intent intent = new Intent(MainActivity.this,CaptureActivity.class);
-                startActivityForResult(intent, CaptureActivity.SCANNING_CODE);
-            }
+        //播放铃声
+        SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        int soundId = soundPool.load(BaseApplication.getAppContext(), R.raw.lingsheng, 1);
+        int stream = soundPool.play(soundId, 0.8f, 0.8f, 1, 0, 1.0f);
+        soundPool.setOnLoadCompleteListener((soundPool1, sampleId, status) -> soundPool1.play(sampleId, 0.8f, 0.8f, 1, 0, 1.0f));
 
-            @Override
-            public void onFature(List<String> permissonList) {
+//        MediaPlayer mMediaPlayer = new MediaPlayer();
+//
+//        try {
+//            mMediaPlayer.setDataSource();
+//            mMediaPlayer.prepare();
+//            mMediaPlayer.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-            }
-        });
+
+//        requestPermission(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissonListener() {
+//            @Override
+//            public void onGranted() {
+//                Intent intent = new Intent(MainActivity.this,CaptureActivity.class);
+//                startActivityForResult(intent, CaptureActivity.SCANNING_CODE);
+//            }
+//
+//            @Override
+//            public void onFature(String s) {
+//
+//            }
+//        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
         // 扫描二维码/条码回传
         if (requestCode == CaptureActivity.SCANNING_CODE && resultCode == RESULT_OK) {

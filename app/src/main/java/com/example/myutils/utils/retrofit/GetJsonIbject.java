@@ -7,6 +7,6 @@ package com.example.myutils.utils.retrofit;
  * 本类描述:
  */
 
-public interface GetJSonIbject<T> {
+public interface GetJsonIbject<T> {
     void getJSonIbject(T t);
 }

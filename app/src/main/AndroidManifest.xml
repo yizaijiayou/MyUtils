@@ -16,16 +16,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ToolBarActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".utils.scan.zxing.CaptureActivity"/>
+        <activity android:name=".Activity_Recording" />
+        <activity android:name=".Activity_Speech" >
 
         </activity>
-        <activity android:name=".utils.scan.zxing.CaptureActivity"/>
         <!--***********************************************************************支付****************************************************************************************************************************************-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -44,9 +47,13 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
-        <activity android:name=".Activity_Recording" />
-        <activity android:name=".Activity_Speech" />
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="@string/wetChat_APPKEY" />
+            </intent-filter>
+        </activity>
         <!-- *******************************************************************Android 7.0 相机*********************************************************************************************************************************  -->
         <provider
             android:name="android.support.v4.content.FileProvider"

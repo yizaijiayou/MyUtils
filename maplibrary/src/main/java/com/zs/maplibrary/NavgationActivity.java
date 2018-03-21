@@ -378,6 +378,11 @@ public class NavgationActivity extends AppCompatActivity implements AMapNaviList
     }
 
     @Override
+    public void updateIntervalCameraInfo(AMapNaviCameraInfo aMapNaviCameraInfo, AMapNaviCameraInfo aMapNaviCameraInfo1, int i) {
+
+    }
+
+    @Override
     public void onServiceAreaUpdate(AMapServiceAreaInfo[] aMapServiceAreaInfos) {
 //        Log.d(TAG, "onServiceAreaUpdate() ");
     }
@@ -405,6 +410,11 @@ public class NavgationActivity extends AppCompatActivity implements AMapNaviList
     @Override
     public void showLaneInfo(AMapLaneInfo[] aMapLaneInfos, byte[] bytes, byte[] bytes1) {
 //        Log.d(TAG, "showLaneInfo() ");
+    }
+
+    @Override
+    public void showLaneInfo(AMapLaneInfo aMapLaneInfo) {
+
     }
 
     @Override

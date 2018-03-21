@@ -168,19 +168,19 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PermissonListener.PERMISSION) {
-            List<String> permissonList = new ArrayList<String>();//被拒绝的权限
+            StringBuilder stringBuilder = new StringBuilder();//被拒绝的权限
             boolean permissionB = true;  // 是否给予权限 true有  |   false没
             for (int i = 0; i < grantResults.length; i++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     permissionB = false;
-                    permissonList.add(permissions[i]);
+                    stringBuilder.append(permissions[i]).append("，");
                 }
             }
 
             if (permissionB) {
                 if (mPermissonListener != null) mPermissonListener.onGranted();
             } else {
-                if (mPermissonListener != null) mPermissonListener.onFature(permissonList);
+                if (mPermissonListener != null) mPermissonListener.onFature(stringBuilder.toString());
             }
         }
     }

@@ -3,15 +3,14 @@ package com.example.myutils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.myutils.base.BaseActivity;
+import com.example.myutils.utils.systemUtils.statusBar.StatusBarUtil;
 
 /**
  * 项目名称： MyUtils
@@ -31,16 +30,16 @@ public class ToolBarActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolBar);
         toolbar.setNavigationIcon(R.drawable.selector_press);
         toolbar.setTitle("");
-//        toolbar.setNavigationIcon(R.mipmap.left_guide2);
         toolbar.setNavigationOnClickListener(v -> toast("你单击我了"));
-
         setSupportActionBar(toolbar);//有时候需要这句话才回出现navagationIcon
         toolbar.setOnMenuItemClickListener(null);
     }
 
     @Override
     public void initView() {
-
+//        StatusBarUtil.transparencyBar(this);
+//        StatusBarUtil.setStatusBarColor(this,R.color.viewfinder_laser);
+        StatusBarUtil.StatusBarDarkMode(this,1);
     }
 
     @Override
@@ -77,5 +76,31 @@ public class ToolBarActivity extends BaseActivity {
     }
     public void getClick(View v){
         toast("asdasdasd");
+    }
+
+
+    /**
+     * 按两次返回键退出程序  与   加退出
+     */
+    private long firstTime;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000) {
+                firstTime = secondTime;
+                toast("再按一次退出程序");
+            } else {
+                System.exit(0);
+                //假退出
+//                Intent i = new Intent(Intent.ACTION_MAIN);
+//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                i.addCategory(Intent.CATEGORY_HOME);
+//                startActivity(i);
+                return true;
+            }
+        }
+        return false;
     }
 }

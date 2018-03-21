@@ -79,11 +79,11 @@ public class PayUtils {
                         } else {
                             if (TextUtils.equals(resultStatus, "8000")) {
                                 Toast.makeText(activity, "支付结果确认中", Toast.LENGTH_SHORT).show();
-                                aliPayInterface.onFailure("8000");
+                                aliPayInterface.onPay();
                             } else {
                                 // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                                 Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT).show();
-                                aliPayInterface.onPay();
+                                aliPayInterface.onFailure(resultStatus);
                             }
                         }
                     }
@@ -149,16 +149,27 @@ public class PayUtils {
                                 PayResult result = new PayResult(payInfo);
                                 String resultStatus = result.getResultStatus();
                                 if (TextUtils.equals(resultStatus, "9000")) {
-                                        Toast.makeText(activity, "支付成功", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(activity, "支付成功", Toast.LENGTH_SHORT).show();
                                     aliPayInterface.onSuccess("9000", orderId);
                                 } else {
                                     if (TextUtils.equals(resultStatus, "8000")) {
                                         Toast.makeText(activity, "支付结果确认中", Toast.LENGTH_SHORT).show();
-                                        aliPayInterface.onFailure("8000");
+                                        aliPayInterface.onPay();
                                     } else {
                                         // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                                         Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT).show();
-                                        aliPayInterface.onPay();
+                                        aliPayInterface.onFailure(resultStatus);
+
+                                        /*  resultStatus
+                                        9000    <---->    订单支付成功
+                                        8000    <---->    正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+                                        4000    <---->    订单支付失败
+                                        5000    <---->    重复请求
+                                        6001    <---->    用户中途取消
+                                        6002    <---->    网络连接出错
+                                        6004    <---->    支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+                                        其它    <---->    其它支付错误
+                                         */
                                     }
                                 }
                             }

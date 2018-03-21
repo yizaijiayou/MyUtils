@@ -14,5 +14,5 @@ public interface PermissonListener {
 
     void onGranted();//获取权限成功
 
-    void onFature(List<String> permissonList);//获取权限失败
+    void onFature(String perssion);//获取权限失败
 }

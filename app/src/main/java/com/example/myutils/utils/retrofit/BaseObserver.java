@@ -19,54 +19,32 @@ import io.reactivex.disposables.Disposable;
  * 本类描述:
  */
 
-public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
-    private LoadingDialog loadingDialog;
-    private Context context;
-
-    public BaseObserver(Context context, LoadingDialog loadingDialog) {
-        this.context = context;
-        this.loadingDialog = loadingDialog;
-    }
+public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-        Log.i("BaseObserver","--------------------onSubscribe---------------------");
-        showLoadingDialog();
+        Log.i("BaseObserver", "--------------------onSubscribe---------------------");
     }
 
     @Override
-    public void onNext(BaseBean<T> tBaseBean) {
-        Log.i("BaseObserver","--------------------onNext---------------------");
-        if (tBaseBean.isResult()){
-            onSuccess(tBaseBean.getData());
-        }else{
-            ToastUtils.show(tBaseBean.getMsg());
-        }
+    public void onNext(T t) {
+        Log.i("BaseObserver", "--------------------onNext---------------------");
+        onSuccess(t);
     }
 
     @Override
     public void onError(Throwable e) {
-        Log.i("BaseObserver","--------------------onError---------------------");
-        ToastUtils.show(BaseApplication.getAppContext().getString(R.string.errorConnect));
-        cancelLoadingDialog();
+        Log.i("BaseObserver", "--------------------onError---------------------");
+        onFailure(e);
     }
 
     @Override
     public void onComplete() {
-        Log.i("BaseObserver","--------------------onComplete---------------------");
-        cancelLoadingDialog();
+        Log.i("BaseObserver", "--------------------onComplete---------------------");
     }
 
     public abstract void onSuccess(T t);
 
-    protected void showLoadingDialog(){
-        if (loadingDialog != null && !loadingDialog.isShowing()){
-            loadingDialog.show();
-        }
-    }
-    protected void cancelLoadingDialog(){
-        if (loadingDialog != null && loadingDialog.isShowing()){
-            loadingDialog.dismiss();
-        }
-    }
+    public abstract void onFailure(Throwable e);
+
 }

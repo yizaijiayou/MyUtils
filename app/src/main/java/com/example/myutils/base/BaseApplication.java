@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 
 import com.example.myutils.MainActivity;
+import com.zxy.tiny.Tiny;
 
 /**
  * Created by Administrator on 2017/11/1.

@@ -42,4 +42,13 @@ public class FileDir {
         return BaseApplication.getAppContext().getExternalCacheDir().getAbsolutePath();
     }
 
+    /**
+     * 图库位置
+     */
+
+    /* /storage/emulated/0/DCIM */
+    /* /storage/emulated/0/DCIM/protectorPhoto    加了path之后*/
+    public static String getDCIM(String path ){
+        return "/storage/emulated/0/DCIM/"+path;
+    }
 }
