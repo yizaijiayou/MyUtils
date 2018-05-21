@@ -30,7 +30,7 @@ public class Activity_Recording extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
-        file = new File(FileDir.STORAGE,"record.mp3");
+        file = new File(FileDir.INSTANCE.getSTORAGE(),"record.mp3");
     }
 
     public void getClick(View v){

@@ -16,31 +16,35 @@ import com.example.myutils.base.BaseApplication;
  * 然后使用sqLiteDatabase即可
  */
 
-public class ProjectSQLite  extends SQLiteOpenHelper {
+public class ProjectSQLite extends SQLiteOpenHelper {
     public final static String SQLNAME = "ProtectSQLite";
-    public final static int SQLVERSION = 4;
+    public final static int SQLVERSION = 1;
 
     public final static String TABLE_RECORD = "recordConnect";
 
-    public ProjectSQLite( String name, int version) {
-        super(BaseApplication.getAppContext(), name, null,version);
+    public ProjectSQLite(String name, int version) {
+        super(BaseApplication.getAppContext(), name, null, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE IF NOT EXISTS "+TABLE_RECORD+"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "time VARCHAR," +
-                "content VARCHAR," +
-                "mac VARCHAR,"+
-                "name VARCHAR,"+
-                "state VARCHAR,"+
-                "phone VARCHAR)";
+//        String sql = "CREATE TABLE IF NOT EXISTS "+TABLE_RECORD+"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                "time VARCHAR," +
+//                "content VARCHAR," +
+//                "mac VARCHAR,"+
+//                "name VARCHAR,"+
+//                "state VARCHAR,"+
+//                "phone VARCHAR)";
+
+        String sql = "CREATE TABLE IF NOT EXISTS " + CacheData.CACHEDATA + "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "name VARCHAR," +
+                "value VARCHAR)";
         sqLiteDatabase.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("drop table if exists "+TABLE_RECORD+"");
+        sqLiteDatabase.execSQL("drop table if exists " + CacheData.CACHEDATA + "");
         onCreate(sqLiteDatabase);
     }
 }

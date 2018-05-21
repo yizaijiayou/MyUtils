@@ -27,6 +27,7 @@
                 android:textSize="20dp" />
 
             <Button
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -60,10 +61,11 @@
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/a"
-                app:border_color="@color/colorPrimary"
-                app:border_width="2dp" />
+                app:border_color="@color/colorAccent"
+                app:border_width="10dp" />
 
             <Button
+                android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

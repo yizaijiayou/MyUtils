@@ -16,14 +16,14 @@ import io.reactivex.disposables.Disposable;
  * 项 目 名: MyTest
  * 创 建 人: 艺仔加油
  * 创建时间: 2017/11/3 15:00
- * 本类描述:
+ * 本类描述:当需要用到loadingDialg等的操作是请用BaseObserver，若只需要访问网络请求，可使用BaseSimpleObserver
  */
 
 public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-        Log.i("BaseObserver", "--------------------onSubscribe---------------------");
+        Log.i("BaseObserver", "--------------------onSubscribe--------------------->");
     }
 
     @Override
@@ -34,13 +34,15 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        Log.i("BaseObserver", "--------------------onError---------------------");
+        e.printStackTrace();
+        Log.i("BaseObserver", "--------------------onError--------------------->" + e.getMessage());
         onFailure(e);
     }
 
     @Override
     public void onComplete() {
         Log.i("BaseObserver", "--------------------onComplete---------------------");
+        onFailure(null);
     }
 
     public abstract void onSuccess(T t);

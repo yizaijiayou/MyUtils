@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.myutils.R;
-import com.example.myutils.utils.systemUtils.glide.GlideApp;
 import com.hitomi.glideloader.GlideImageLoader;
 import com.hitomi.tilibrary.style.progress.ProgressPieIndicator;
 import com.hitomi.tilibrary.transfer.TransferConfig;
@@ -63,7 +62,7 @@ public class ImageUtils {
         lists.addAll(list);
         images.add(imageView);
         final TransferConfig transferConfig = initConfig(context, images, lists);
-        GlideApp.with(context).load(lists.get(0)).error(R.mipmap.ic_launcher_round).into(imageView);
+        Glide.with(context).load(lists.get(0)).into(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +75,7 @@ public class ImageUtils {
     public static void load(final Context context, final List<ImageView> imagesList, List<String> list) {
         final TransferConfig transferConfig = initConfig(context, imagesList, list);
         for (int i = 0; i < list.size(); i++) {
-            GlideApp.with(context).load(list.get(i)).error(R.mipmap.ic_launcher_round).into(imagesList.get(i));
+            Glide.with(context).load(list.get(i)).into(imagesList.get(i));
             imagesList.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -2,6 +2,7 @@ package com.example.myutils.utils.retrofit;
 
 
 import com.example.myutils.base.BaseBean;
+import com.example.myutils.base.ProtectMan;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -41,10 +43,13 @@ import retrofit2.http.Url;
  */
 
 public interface Reception {
-    String ip = "http://192.168.1.121:8080/";
+    String ip = "http://192.168.1.145:8080/";
 
     @POST("AndroidWebTest/student")
     Observable<String> getPostCall(@QueryMap Map<String, String> options);
+
+    @POST("AndroidWebTest/student")
+    Observable<String> getPostCall(@Query("scy") String flag, @Query("user") String temp);
 
     /**
      * 上传文件

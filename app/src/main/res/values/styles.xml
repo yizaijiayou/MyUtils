@@ -18,4 +18,19 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+
+    <!-- Dialog的样式 -->
+    <style name="dialogStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/enter_dialog</item>
+        <item name="android:windowExitAnimation">@anim/exit_dialog</item>
+    </style>
+
+    <style name="dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <!--<item name="android:windowFrame">@null</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowAnimationStyle">@style/dialogStyle</item>
+    </style>
 </resources>

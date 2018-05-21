@@ -1,3 +1,5 @@
+## 1.0.5
+1.
 ## 1.0.4
 1.新增MyHttpLoggingInterceptor，输出访问url和json的Okhttp3拦截器<br>
 2.优化与添加Retrofit2Utils中的upload和down两个方法<br>

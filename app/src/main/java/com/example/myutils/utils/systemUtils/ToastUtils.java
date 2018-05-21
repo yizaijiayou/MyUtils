@@ -1,5 +1,6 @@
 package com.example.myutils.utils.systemUtils;
 
+import android.os.Looper;
 import android.widget.Toast;
 
 import com.example.myutils.base.BaseApplication;
@@ -14,8 +15,10 @@ import com.example.myutils.base.BaseApplication;
 public class ToastUtils {
     private static Toast toast;
     public static synchronized Toast getInstance() {
-        if (toast == null)
+        if (toast == null) {
+            Looper.prepare();
             toast = Toast.makeText(BaseApplication.getAppContext(), "", Toast.LENGTH_SHORT);
+        }
         return toast;
     }
 

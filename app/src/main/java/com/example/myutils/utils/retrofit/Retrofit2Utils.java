@@ -3,13 +3,11 @@ package com.example.myutils.utils.retrofit;
 import android.os.Environment;
 import android.os.Handler;
 
-import com.example.myutils.base.BaseBean;
 import com.example.myutils.utils.systemUtils.FileDir;
 import com.example.myutils.utils.systemUtils.L;
 import com.example.myutils.utils.systemUtils.NetUtils;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.FileBatchCallback;
-import com.zxy.tiny.callback.FileCallback;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,10 +18,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.internal.observers.BlockingBaseObserver;
-import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -52,8 +48,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
                 .observeOn(AndroidSchedulers.mainThread());
   }
 使用这个方法
-  //GetJsonIbject<List<User>>  是一个GetJSonIbject<T>的接口类，用于回调到界面
-  public static void getPostOb(Context context, AlertDialog alertDialog, String s1, String s2, GetJsonIbject<List<User>> getJSonIbject){
+  //GetJsonObject<List<User>>  是一个GetJSonIbject<T>的接口类，用于回调到界面
+  public static void getPostOb(Context context, AlertDialog alertDialog, String s1, String s2, GetJsonObject<List<User>> getJSonIbject){
        Map<String, String> maps = new HashMap<>();
        maps.put("scy", s1);
        maps.put("user", s2);
@@ -114,8 +110,8 @@ public class Retrofit2Utils {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(Reception.ip)
-                .addConverterFactory(GsonConverterFactory.create())
-//                .addConverterFactory(ScalarsConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
@@ -124,6 +120,7 @@ public class Retrofit2Utils {
     private Retrofit getRetrofit(){
         return retrofit;
     }
+
     //********************************************************************************************************************************************************************************
     public static Reception create() {
         return getInstance().getRetrofit().create(Reception.class);
@@ -137,7 +134,7 @@ public class Retrofit2Utils {
      * @POST("/API/APP/Upload/Uploader.ashx") Observable<String> upload(@Part List<MultipartBody.Part> multipart);
      * 如果您的Retrofit2用的是GsonConverterFactory，那个这里的String要改成一个实体类,否则上传失败
      */
-    public void upload(File[] files, Map<String, String> map, GetJsonIbject<String> getJsonIbject) {
+    public void upload(File[] files, Map<String, String> map, GetJsonObject<String> getJsonObject) {
         Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
         Tiny.getInstance().source(files).batchAsFile().withOptions(options).batchCompress(new FileBatchCallback() {
             @Override
@@ -164,7 +161,7 @@ public class Retrofit2Utils {
                         .subscribe(new BlockingBaseObserver<String>() {
                             @Override
                             public void onNext(String s) {
-                                getJsonIbject.getJSonIbject(s);
+                                getJsonObject.getJsonObject(s);
                             }
 
                             @Override
@@ -176,9 +173,9 @@ public class Retrofit2Utils {
         });
     }
 
-    public void upload(File file, Map<String, String> map, GetJsonIbject<String> getJsonIbject) {
+    public void upload(File file, Map<String, String> map, GetJsonObject<String> getJsonObject) {
         File[] files = {file};
-        upload(files, map, getJsonIbject);
+        upload(files, map, getJsonObject);
     }
 
     /**
@@ -192,9 +189,15 @@ public class Retrofit2Utils {
      * @GET Observable<ResponseBody> down(@Url String fileUrl);
      */
     public void down(String downUrl, Handler handler, OnDownloadListener onDownloadListener) {
-        File file = new File(FileDir.STORAGE, System.currentTimeMillis()+".apk");  //下载存放的文件
+        File file = new File(FileDir.INSTANCE.getSTORAGE(), System.currentTimeMillis()+".apk");  //下载存放的文件
 
-        getInstance().getRetrofit().create(Reception.class)
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Reception.ip)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        retrofit.create(Reception.class)
                 .down(downUrl)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())    //子线程
