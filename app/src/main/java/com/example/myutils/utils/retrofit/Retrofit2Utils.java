@@ -189,7 +189,7 @@ public class Retrofit2Utils {
      * @GET Observable<ResponseBody> down(@Url String fileUrl);
      */
     public void down(String downUrl, Handler handler, OnDownloadListener onDownloadListener) {
-        File file = new File(FileDir.INSTANCE.getSTORAGE(), System.currentTimeMillis()+".apk");  //下载存放的文件
+        File file = new File(FileDir.getAppFiles(), System.currentTimeMillis()+".apk");  //下载存放的文件
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Reception.ip)

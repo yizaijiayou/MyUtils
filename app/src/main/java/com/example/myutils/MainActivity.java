@@ -4,35 +4,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.myutils.base.BaseActivity;
-import com.example.myutils.base.BaseApplication;
 import com.example.myutils.base.PermissonListener;
-import com.example.myutils.base.ProtectMan;
-import com.example.myutils.utils.retrofit.BaseObserver;
-import com.example.myutils.utils.retrofit.Retrofit2Utils;
 import com.example.myutils.utils.scan.zxing.CaptureActivity;
-import com.example.myutils.utils.sql.sqlite.CacheData;
-import com.example.myutils.utils.systemUtils.FileDir;
-import com.example.myutils.utils.systemUtils.L;
-import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 项 目 名: MyUtils

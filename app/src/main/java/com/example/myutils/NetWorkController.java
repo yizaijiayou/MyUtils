@@ -28,9 +28,4 @@ public class NetWorkController {
         return observer.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
-    public static void getRetrofit2(BaseObserver<String> baseObserver){
-        setObserver(Retrofit2Utils.create().getPostCall("scy","scy"))
-            .subscribe(baseObserver);
-    }
 }
