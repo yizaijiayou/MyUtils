@@ -36,7 +36,6 @@ import java.net.URL;
 
         Glide.with(this).load(image3).apply(options).into(imageView);//
 
-
         TransitionOptions transitionOptions = new DrawableTransitionOptions().crossFade(500); //淡入，间隔时间500毫秒；不填，默认为300毫秒
 
         Glide.with(this).load(image3).transition(transitionOptions).thumbnail(Glide.with(this).load(R.mipmap.ic_launcher)).into(imageView);   //thumbnail为预览显示(显示缩略图)

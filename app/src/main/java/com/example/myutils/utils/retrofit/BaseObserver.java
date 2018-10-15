@@ -9,6 +9,10 @@ import com.example.myutils.base.BaseBean;
 import com.example.myutils.utils.systemUtils.ToastUtils;
 import com.example.myutils.utils.loadingDialog.LoadingDialog;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -20,6 +24,9 @@ import io.reactivex.disposables.Disposable;
  */
 
 public abstract class BaseObserver<T> implements Observer<T> {
+    private final String SOCKET_TIMEOUT_EXCEPTION = "网络连接超时，请检查您的网络状态，稍后重试";
+    private final String CONNECT_EXCEPTION = "网络连接异常，请检查您的网络状态";
+    private final String UNKNOWN_HOST_EXCEPTION = "网络异常，请检查您的网络状态";
 
     @Override
     public void onSubscribe(Disposable d) {
@@ -34,19 +41,26 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        e.printStackTrace();
         Log.i("BaseObserver", "--------------------onError--------------------->" + e.getMessage());
-        onFailure(e);
+//        onFailure(e);
+        if (e instanceof SocketTimeoutException) {
+            onFailure(SOCKET_TIMEOUT_EXCEPTION);
+        } else if (e instanceof ConnectException) {
+            onFailure(CONNECT_EXCEPTION);
+        } else if (e instanceof UnknownHostException) {
+            onFailure(UNKNOWN_HOST_EXCEPTION);
+        } else {
+            onFailure(e.getMessage());
+        }
     }
 
     @Override
     public void onComplete() {
         Log.i("BaseObserver", "--------------------onComplete---------------------");
-        onFailure(null);
     }
+
 
     public abstract void onSuccess(T t);
 
-    public abstract void onFailure(Throwable e);
-
+    public abstract void onFailure(String e);
 }
